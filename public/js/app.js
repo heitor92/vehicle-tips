@@ -4942,9 +4942,19 @@ module.exports = {
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
   \*****************************/
-/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _vehicle_tips_user__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./vehicle-tips/user */ "./resources/js/vehicle-tips/user.js");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+/** 
+ * Script JS do User
+ */
+
+
+
+window.SignUpUser = _vehicle_tips_user__WEBPACK_IMPORTED_MODULE_0__.SignUpUser;
 
 /***/ }),
 
@@ -4981,6 +4991,78 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/vehicle-tips/user.js":
+/*!*******************************************!*\
+  !*** ./resources/js/vehicle-tips/user.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "SignUpUser": () => (/* binding */ SignUpUser)
+/* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+var SignUpUser = {
+  userName: document.querySelector('#user-form-signup input#userName'),
+  userEmail: document.querySelector('#user-form-signup input#userEmail'),
+  userPassword: document.querySelector('#user-form-signup input#userPassword'),
+  getValues: function getValues() {
+    return {
+      name: SignUpUser.userName.value,
+      email: SignUpUser.userEmail.value,
+      password: SignUpUser.userPassword.value
+    };
+  },
+  register: function register() {
+    axios__WEBPACK_IMPORTED_MODULE_0___default()({
+      method: 'post',
+      url: '/user/save',
+      data: SignUpUser.getValues()
+    }).then(function (response) {
+      SignUpUser.setValid(document.querySelector('#user-form-signup #userName'));
+      SignUpUser.setValid(document.querySelector('#user-form-signup #userEmail'));
+      SignUpUser.setValid(document.querySelector('#user-form-signup #userPassword'));
+    })["catch"](function (error) {
+      if (error.response.data.errors.hasOwnProperty('name')) {
+        SignUpUser.setErrorInvalid(document.querySelector('#user-form-signup #name-error'), document.querySelector('#user-form-signup #userName'), error.response.data.errors.name);
+      } else {
+        SignUpUser.setValid(document.querySelector('#user-form-signup #userName'));
+      }
+
+      if (error.response.data.errors.hasOwnProperty('email')) {
+        SignUpUser.setErrorInvalid(document.querySelector('#user-form-signup #email-error'), document.querySelector('#user-form-signup #userEmail'), error.response.data.errors.email);
+      } else {
+        SignUpUser.setValid(document.querySelector('#user-form-signup #userEmail'));
+      }
+
+      if (error.response.data.errors.hasOwnProperty('password')) {
+        SignUpUser.setErrorInvalid(document.querySelector('#user-form-signup #password-error'), document.querySelector('#user-form-signup #userPassword'), error.response.data.errors.password);
+      } else {
+        SignUpUser.setValid(document.querySelector('#user-form-signup #userPassword'));
+      }
+    });
+  },
+  setErrorInvalid: function setErrorInvalid(elementError, elementInput, errorArray) {
+    var html = '';
+    elementInput.classList.remove('is-valid');
+    elementInput.classList.add('is-invalid');
+    errorArray.forEach(function (message) {
+      html += "".concat(message, "<br>");
+    });
+    elementError.innerHTML = html;
+  },
+  setValid: function setValid(elementInput) {
+    elementInput.classList.remove('is-invalid');
+    elementInput.classList.add('is-valid');
+  }
+};
+
 
 /***/ }),
 
@@ -27459,6 +27541,18 @@ process.umask = function() { return 0; };
 /******/ 				}
 /******/ 			}
 /******/ 			return result;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
 /******/ 		};
 /******/ 	})();
 /******/ 	

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\VehicleTipsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('vehicle-tips.home');
-});
+Route::get('/', [VehicleTipsController::class, 'index']);
+Route::post('/user/save', [UserController::class, 'store']);

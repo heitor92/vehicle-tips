@@ -9,12 +9,12 @@
             <div class="modal-body">
                 <form>
                     <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="userEmail" placeholder="name@example.com">
-                        <label for="userEmail">Email</label>
+                        <input type="email" class="form-control" id="userEmailLogin" placeholder="name@example.com">
+                        <label for="userEmailLogin">Email</label>
                     </div>
                     <div class="form-floating">
-                        <input type="password" class="form-control" id="userPassword" placeholder="Password">
-                        <label for="userPassword">Senha</label>
+                        <input type="password" class="form-control" id="userPasswordLogin" placeholder="Password" autocomplete="on">
+                        <label for="userPasswordLogin">Senha</label>
                     </div>
                 </form>
             </div>

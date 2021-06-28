@@ -1,6 +1,5 @@
-<x-vehicle-tips.layout>
-
-    <x-vehicle-tips.layout.header>
+<x-vehicle-tips.layout :title="$title">
+    <x-vehicle-tips.layout.header :name="$name">
         <x-user.modals.login/>
         <x-user.modals.sign-up/>
     </x-vehicle-tips.layout.header>
@@ -14,5 +13,4 @@
     </x-vehicle-tips.layout.main>
 
     <x-vehicle-tips.layout.footer/>
-    
 </x-vehicle-tips.layout>

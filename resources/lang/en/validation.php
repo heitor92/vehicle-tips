@@ -135,9 +135,21 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+//        'attribute-name' => [
+//            'rule-name' => 'custom-message',
+//        ],
+        'email' =>[
+            'required' => 'O :attribute é obrigatório!',
+            'regex' => 'Não é um :attribute válido'
         ],
+        'name' => [
+            'required' => 'O :attribute é obrigatório!'
+        ],
+        'password' => [
+            'required' => 'A :attribute é obrigatório!',
+            'min' => 'A :attribute deve conter pelo menos 8 caracteres'
+        ],
+
     ],
 
     /*
@@ -151,6 +163,10 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'email' => 'endereço de email',
+        'name' => 'nome',
+        'password' => 'senha'
+    ],
 
 ];

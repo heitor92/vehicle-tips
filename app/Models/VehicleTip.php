@@ -15,6 +15,17 @@ class VehicleTip extends Model
      * @var array
      */
     protected $fillable = [
-        'name'
+        'id_user',
+        'type_vehicle',
+        'brand',
+        'model',
+        'version'
     ];
+
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'vehicle_tip';
 }

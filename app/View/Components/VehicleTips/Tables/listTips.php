@@ -14,13 +14,22 @@ class listTips extends Component
     public $user;
 
     /**
+     * dicas de veículos
+     *
+     * @var array
+     */
+    public $arVehicleTips;
+
+    /**
      * Create a new component instance.
      * @param object $user
+     * @param array $arVehicleTips
      * @return void
      */
-    public function __construct($user)
+    public function __construct($user, $arVehicleTips)
     {
         $this->user = $user;
+        $this->arVehicleTips = $arVehicleTips;
     }
 
     /**

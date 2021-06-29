@@ -15,10 +15,6 @@ class TypeVehicle extends Model
      * @var array
      */
     protected $fillable = [
-        'id_user',
-        'type_vehicle',
-        'brand',
-        'model',
-        'version'
+        'name'
     ];
 }

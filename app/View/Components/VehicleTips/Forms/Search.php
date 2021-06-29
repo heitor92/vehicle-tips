@@ -21,15 +21,23 @@ class Search extends Component
     public $arTypeVehicle;
 
     /**
+     * Marcas de veículo
+     *
+     * @var array
+     */
+    public $arBrands;
+
+    /**
      * Create a new component instance.
      * @param object $user
      * @param array $arTypeVehicle
      * @return void
      */
-    public function __construct($user, $arTypeVehicle)
+    public function __construct($user, $arTypeVehicle, $arBrands)
     {
         $this->user = $user;
         $this->arTypeVehicle = $arTypeVehicle;
+        $this->arBrands = $arBrands;
     }
 
     /**

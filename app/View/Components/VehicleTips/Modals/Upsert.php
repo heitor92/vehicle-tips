@@ -21,15 +21,24 @@ class Upsert extends Component
     public $arTypeVehicle;
 
     /**
+     * marcas de veículos em base
+     *
+     * @var array
+     */
+    public $arBrands;
+
+    /**
      * Create a new component instance.
      * @param object $user
      * @param array $arTypeVehicle
+     * @param array $arBrands
      * @return void
      */
-    public function __construct($user, $arTypeVehicle)
+    public function __construct($user, $arTypeVehicle, $arBrands)
     {
         $this->user = $user;
         $this->arTypeVehicle = $arTypeVehicle;
+        $this->arBrands = $arBrands;
     }
 
     /**

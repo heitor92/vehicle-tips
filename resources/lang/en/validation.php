@@ -140,17 +140,34 @@ return [
 //        ],
         'email' =>[
             'required' => 'O :attribute é obrigatório!',
-            'regex' => 'Não é um :attribute válido',
-            'unique' => 'O :attribute já foi usado.'
+            'regex' => 'Não é um :attribute válido!',
+            'unique' => 'O :attribute já foi usado!',
+            'exists' => 'O :attribute não está cadastrado em nossa base!'
         ],
         'name' => [
             'required' => 'O :attribute é obrigatório!',
-            'unique' => 'O :attribute já foi usado.'
+            'unique' => 'O :attribute já está sendo usado!'
         ],
         'password' => [
             'required' => 'A :attribute é obrigatório!',
-            'min' => 'A :attribute deve conter pelo menos 8 caracteres'
+            'min' => 'A :attribute deve conter pelo menos 8 caracteres!',
+            'password' => 'A :attribute está incorreta!'
         ],
+        'id_user' => [
+            'required' => 'Necessário está logado!'
+        ],
+        'type_vehicle' => [
+            'required' => 'O :attribute é obrigatório!',
+            'present' => 'O :attribute é obrigatório!'
+        ],
+        'brand' => [
+            'required' => 'A :attribute é obrigatório!'
+        ],
+        'model' => [
+            'required' => 'O :attribute é obrigatório!'
+        ] 
+
+
 
     ],
 
@@ -168,7 +185,10 @@ return [
     'attributes' => [
         'email' => 'endereço de email',
         'name' => 'nome',
-        'password' => 'senha'
+        'password' => 'senha',
+        'type_vehicle' => 'tipo de veículo',
+        'brand' => 'Marca',
+        'model' => 'Modelo'
     ],
 
 ];

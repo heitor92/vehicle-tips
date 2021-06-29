@@ -2,14 +2,16 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="upsertTipsLabel">Nova Dica de veículo</h5>
+                <h5 class="modal-title" id="upsertTipsLabel">Nova dica de veículo</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form id="upsert-vehicle-tips-form">
+                <input type="hidden" id="token" name="_token" value="{{ csrf_token() }}" />
+                    <input type="hidden" id="idUser" name="id_user" value="{{ $user['id']??'' }}">
                     <div class="mb-3 input-group">
                         <select class="form-select" id="typeVehicle" aria-label="Tipo de Veículo">
-                            <option selected>-- Tipo --</option>
+                            <option value="" selected>-- Tipo --</option>
                             @foreach ($arTypeVehicle as $typeVehicle)
                                 <option value="{{ $typeVehicle['id'] }}">{{ $typeVehicle['name'] }}</option>
                             @endforeach
@@ -21,11 +23,11 @@
                         <input type="text" class="form-control w-75" id="marcaVehicleInput" placeholder="Marca" aria-label="Marca">
                         <div id="marca-vehicle-input-error" class="invalid-tooltip">
                         </div>
-                        <select class="form-select" aria-label="Marca" id="marcaVehicleSelect">
-                            <option selected>-</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                        <select onchange="UpsertTips.changeBrand()" class="form-select" aria-label="Marca" id="marcaVehicleSelect">
+                            <option value="" selected>-</option>
+                            @foreach ($arBrands as $brand)
+                                <option value="{{ $brand['brand'] }}">{{ $brand['brand'] }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="input-group mb-3">

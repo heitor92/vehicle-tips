@@ -19,7 +19,7 @@ class CreateVehicleTipTable extends Migration
             $table->unsignedBigInteger('type_vehicle');
             $table->text('brand');
             $table->text('model');
-            $table->text('version');
+            $table->text('version')->nullable();
             $table->timestamps();
 
             $table->foreign('id_user')->references('id')->on('users');

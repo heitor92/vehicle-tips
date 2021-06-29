@@ -12,10 +12,10 @@
             @endforeach
         </select>
         <select class="form-select" aria-label="Marca">
-            <option selected>-- Marca --</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+            <option value=""selected>-- Marca --</option>
+            @foreach ($arBrands as $brand)
+                <option value="{{ $brand['brand'] }}">{{ $brand['brand'] }}</option>
+            @endforeach
         </select>
         <select class="form-select" aria-label="Modelo">
             <option selected>-- Modelo --</option>

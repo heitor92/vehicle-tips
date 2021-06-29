@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\TypeVehicle;
+use App\Models\VehicleTip;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
 class VehicleTipsController extends Controller
@@ -20,17 +23,21 @@ class VehicleTipsController extends Controller
         $user = [];
 
         $arTypeVehicle = $this->getTypesVehicle();
-        if(request()->session()->has('id')){
+        $arBrands = $this->getBrandVehicle();
+        $arVehicleTips = $this->getVehicleTips();
+        if (request()->session()->has('id')) {
             $user['id'] = request()->session()->get('id');
             $user['name'] = request()->session()->get('name');
             $user['email'] = request()->session()->get('email');
         }
-        
+
         return view('vehicle-tips.home', [
             'title' => $title,
             'name' => $name,
             'user' => $user,
-            'arTypeVehicle' => $arTypeVehicle
+            'arTypeVehicle' => $arTypeVehicle,
+            'arBrands' => $arBrands,
+            'arVehicleTips' => $arVehicleTips
         ]);
     }
 
@@ -53,6 +60,46 @@ class VehicleTipsController extends Controller
     }
 
     /**
+     * lista marcar de veículos na base
+     *
+     * @return array
+     */
+    public function getBrandVehicle()
+    {
+        $brandsVehicle = DB::table('vehicle_tip')->distinct()->get('brand');
+        $brand = [];
+        $arrayBrands = [];
+        foreach ($brandsVehicle as  $brandItem) {
+            $brand['brand'] = $brandItem->brand;
+            $arrayBrands[] = $brand;
+        }
+        return $arrayBrands;
+    }
+
+    /**
+     * veículos na base
+     *
+     * @return array
+     */
+    public function getVehicleTips()
+    {
+        $tipsVehicle = DB::table('vehicle_tip')->get();
+        $tip = [];
+        $arrayTips = [];
+        foreach ($tipsVehicle as  $tipItem) {
+            $tip['id'] = $tipItem->id;
+            $tip['id_user'] = $tipItem->id_user;
+            $tip['type_vehicle'] = $tipItem->type_vehicle;
+            $tip['brand'] = $tipItem->brand;
+            $tip['model'] = $tipItem->model;
+            $tip['version'] = $tipItem->version;
+            $tip['created_at'] = $tipItem->created_at;
+            $arrayTips[] = $tip;
+        }
+        return $arrayTips;
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -70,7 +117,34 @@ class VehicleTipsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        /** Validação dos dados */
+        $validated = $request->validate([
+            'id_user' => 'required',
+            'type_vehicle' => 'required|present',
+            'brand' => 'required',
+            'model' => 'required'
+        ]);
+        if ($request->session()->token() == $request->_token) {
+            $vehicleTip = new VehicleTip();
+            $vehicleTip->id_user = $validated['id_user'];
+            $vehicleTip->type_vehicle = $validated['type_vehicle'];
+            $vehicleTip->brand = $validated['brand'];
+            $vehicleTip->model = $validated['model'];
+            $vehicleTip->version = $request->version;
+            $vehicleTip->save();
+        } else {
+            return new Response([
+                'errors' => [
+                    'id_user' => ['Necessário está logado!']
+                ]
+            ], 422);
+        }
+
+        return new Response([
+            'success' => [
+                'vehicle_tip' => ['Salvo com successo!']
+            ]
+        ], 200);
     }
 
     /**

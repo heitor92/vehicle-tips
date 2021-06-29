@@ -70,7 +70,7 @@ class UserController extends Controller
     public function authenticate(Request $request)
     {
         $credentials = $request->validate([
-            'email' => 'required',
+            'email' => 'required|exists:users',
             'password' => 'required'
         ]);
 
@@ -78,7 +78,6 @@ class UserController extends Controller
             ->where('email', $credentials['email'])
             ->limit(1)
             ->get()[0];
-        //die(var_dump($user));
 
         if (Auth::attempt($credentials)) {
 
@@ -94,7 +93,6 @@ class UserController extends Controller
                 'emailAlert' => ['As credenciais fornecidas não correspondem aos nossos registros.']
             ]
         ], 422);
-
     }
 
     /**

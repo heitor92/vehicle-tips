@@ -9,7 +9,7 @@
                 @if (array_key_exists('name', $user))
                 <div class="dropdown">
                     <a href="#" class="d-block link-light text-decoration-none dropdown-toggle" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+                        <img src="https://github.com/heitor92.png" alt="mdo" width="32" height="32" class="rounded-circle">
                     </a>
                     <ul class="dropdown-menu text-small dropdown-menu-end" aria-labelledby="dropdownUser">
                         <li><span class="dropdown-item-text"><strong>Usuário: {{ $user['name'] }}</strong></span></li>

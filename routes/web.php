@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [VehicleTipsController::class, 'index']);
+Route::post('/vehicle-tip/save', [VehicleTipsController::class, 'store']);
 Route::post('/user/save', [UserController::class, 'store']);
 Route::post('/user/login', [UserController::class, 'authenticate']);
 Route::post('/user/logout', [UserController::class, 'logout']);

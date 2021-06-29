@@ -116,8 +116,10 @@ const LoginUser = {
             data: LoginUser.getValues()
         }).then(function (response) {
             //let modal = bootstrap.Modal.getInstance(SignUpUser.modal)
+            LoginUser.clear(LoginUser.userEmailLogin)
+            LoginUser.clear(LoginUser.userPasswordLogin)
             window.location.href = "http://localhost";
-            //modal.hide()
+            
 
         }).catch(function (error) {
 

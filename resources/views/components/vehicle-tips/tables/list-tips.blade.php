@@ -20,105 +20,34 @@
             </tr>
         </thead>
         <tbody>
+                @foreach($arVehicleTips as $vehicleTips)
             <tr>
-                <th scope="row">1</th>
-                <td class="text-center">Moto</td>
-                <td class="text-center">Honda</td>
-                <td class="text-center">XLR</td>
-                <td class="text-center">1.0</td>
+                <th scope="row">{{ $vehicleTips['id'] }}</th>
+                <td class="text-center">{{ $vehicleTips['type_vehicle'] }}</td>
+                <td class="text-center">{{ $vehicleTips['brand'] }}</td>
+                <td class="text-center">{{ $vehicleTips['model'] }}</td>
+                <td class="text-center">{{ $vehicleTips['version']?? '-' }}</td>
                 <td class="text-center">
-                    <button 
-                        class="btn btn-warning me-2 
-                        @if(array_key_exists('name', $user))
+                    <button class="btn btn-warning me-2 
+                        @if(array_key_exists('name', $user) && $user['id'] == $vehicleTips['id_user'])
                             visible
                         @else
                             invisible
-                        @endif" 
-                        type="button" 
-                        data-bs-toggle="modal" 
-                        data-bs-target="#upsertTips">
+                        @endif" type="button" data-bs-toggle="modal" data-bs-target="#upsertTips">
                         <i class="bi bi-pencil"></i>
                     </button>
                     <button class="btn btn-warning me-2" type="button" data-bs-toggle="modal" data-bs-target="#displayTips"><i class="bi bi-eye"></i></button>
                     <button class="btn btn-danger me-2 
-                        @if(array_key_exists('name', $user))
+                        @if(array_key_exists('id', $user) && $user['id'] == $vehicleTips['id_user'])
                             visible
                         @else
                             invisible
-                        @endif" 
-                        type="button" 
-                        data-bs-toggle="modal" 
-                        data-bs-target="#deleteTips">
+                        @endif" type="button" data-bs-toggle="modal" data-bs-target="#deleteTips">
                         <i class="bi bi-trash"></i>
                     </button>
                 </td>
             </tr>
-            <tr>
-                <th scope="row">1</th>
-                <td class="text-center">Moto</td>
-                <td class="text-center">Honda</td>
-                <td class="text-center">XLR</td>
-                <td class="text-center">1.0</td>
-                <td class="text-center">
-                <button 
-                        class="btn btn-warning me-2 
-                        @if(array_key_exists('name', $user))
-                            visible
-                        @else
-                            invisible
-                        @endif" 
-                        type="button" 
-                        data-bs-toggle="modal" 
-                        data-bs-target="#upsertTips">
-                        <i class="bi bi-pencil"></i>
-                    </button>
-                    <button class="btn btn-warning me-2" type="button" data-bs-toggle="modal" data-bs-target="#displayTips"><i class="bi bi-eye"></i></button>
-                    <button class="btn btn-danger me-2 
-                        @if(array_key_exists('name', $user))
-                            visible
-                        @else
-                            invisible
-                        @endif" 
-                        type="button" 
-                        data-bs-toggle="modal" 
-                        data-bs-target="#deleteTips">
-                        <i class="bi bi-trash"></i>
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">1</th>
-                <td class="text-center">Moto</td>
-                <td class="text-center">Honda</td>
-                <td class="text-center">XLR</td>
-                <td class="text-center">1.0</td>
-                <td class="text-center">
-                <button 
-                        class="btn btn-warning me-2 
-                        @if(array_key_exists('name', $user))
-                            visible
-                        @else
-                            invisible
-                        @endif" 
-                        type="button" 
-                        data-bs-toggle="modal" 
-                        data-bs-target="#upsertTips">
-                        <i class="bi bi-pencil"></i>
-                    </button>
-                    <button class="btn btn-warning me-2" type="button" data-bs-toggle="modal" data-bs-target="#displayTips"><i class="bi bi-eye"></i></button>
-                    <button class="btn btn-danger me-2 
-                        @if(array_key_exists('name', $user))
-                            visible
-                        @else
-                            invisible
-                        @endif" 
-                        type="button" 
-                        data-bs-toggle="modal" 
-                        data-bs-target="#deleteTips">
-                        <i class="bi bi-trash"></i>
-                    </button>
-                </td>
-            </tr>
+            @endforeach
         </tbody>
     </table>
 </div>

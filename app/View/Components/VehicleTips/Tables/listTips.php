@@ -7,13 +7,20 @@ use Illuminate\View\Component;
 class listTips extends Component
 {
     /**
-     * Create a new component instance.
+     * usuário
      *
+     * @var object
+     */
+    public $user;
+
+    /**
+     * Create a new component instance.
+     * @param object $user
      * @return void
      */
-    public function __construct()
+    public function __construct($user)
     {
-        //
+        $this->user = $user;
     }
 
     /**

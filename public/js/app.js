@@ -4947,6 +4947,7 @@ module.exports = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vehicle_tips_user__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./vehicle-tips/user */ "./resources/js/vehicle-tips/user.js");
+/* harmony import */ var _vehicle_tips_vehicle_tips__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./vehicle-tips/vehicle-tips */ "./resources/js/vehicle-tips/vehicle-tips.js");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 /** 
  * Script JS do User
@@ -4955,6 +4956,13 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 window.SignUpUser = _vehicle_tips_user__WEBPACK_IMPORTED_MODULE_0__.SignUpUser;
+window.LoginUser = _vehicle_tips_user__WEBPACK_IMPORTED_MODULE_0__.LoginUser;
+/**
+ * Script JS do Vehicle tips
+ */
+
+
+window.UpsertTips = _vehicle_tips_vehicle_tips__WEBPACK_IMPORTED_MODULE_1__.UpsertTips;
 
 /***/ }),
 
@@ -5003,15 +5011,20 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "SignUpUser": () => (/* binding */ SignUpUser)
+/* harmony export */   "SignUpUser": () => (/* binding */ SignUpUser),
+/* harmony export */   "LoginUser": () => (/* binding */ LoginUser)
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
 var SignUpUser = {
+  modal: document.querySelector('#signUpUser'),
   userName: document.querySelector('#user-form-signup input#userName'),
   userEmail: document.querySelector('#user-form-signup input#userEmail'),
   userPassword: document.querySelector('#user-form-signup input#userPassword'),
+  nameError: document.querySelector('#user-form-signup #name-error'),
+  emailError: document.querySelector('#user-form-signup #email-error'),
+  passwordError: document.querySelector('#user-form-signup #password-error'),
   getValues: function getValues() {
     return {
       name: SignUpUser.userName.value,
@@ -5025,26 +5038,32 @@ var SignUpUser = {
       url: '/user/save',
       data: SignUpUser.getValues()
     }).then(function (response) {
-      SignUpUser.setValid(document.querySelector('#user-form-signup #userName'));
-      SignUpUser.setValid(document.querySelector('#user-form-signup #userEmail'));
-      SignUpUser.setValid(document.querySelector('#user-form-signup #userPassword'));
+      var modal = bootstrap.Modal.getInstance(SignUpUser.modal);
+      SignUpUser.setValid(SignUpUser.userName);
+      SignUpUser.setValid(SignUpUser.userEmail);
+      SignUpUser.setValid(SignUpUser.userPassword);
+      SignUpUser.clear(SignUpUser.userName);
+      SignUpUser.clear(SignUpUser.userEmail);
+      SignUpUser.clear(SignUpUser.userPassword); //SignUpUser.modal.hide()
+
+      modal.hide();
     })["catch"](function (error) {
       if (error.response.data.errors.hasOwnProperty('name')) {
-        SignUpUser.setErrorInvalid(document.querySelector('#user-form-signup #name-error'), document.querySelector('#user-form-signup #userName'), error.response.data.errors.name);
+        SignUpUser.setErrorInvalid(SignUpUser.nameError, SignUpUser.userName, error.response.data.errors.name);
       } else {
-        SignUpUser.setValid(document.querySelector('#user-form-signup #userName'));
+        SignUpUser.setValid(SignUpUser.userName);
       }
 
       if (error.response.data.errors.hasOwnProperty('email')) {
-        SignUpUser.setErrorInvalid(document.querySelector('#user-form-signup #email-error'), document.querySelector('#user-form-signup #userEmail'), error.response.data.errors.email);
+        SignUpUser.setErrorInvalid(SignUpUser.emailError, SignUpUser.userEmail, error.response.data.errors.email);
       } else {
-        SignUpUser.setValid(document.querySelector('#user-form-signup #userEmail'));
+        SignUpUser.setValid(SignUpUser.userEmail);
       }
 
       if (error.response.data.errors.hasOwnProperty('password')) {
-        SignUpUser.setErrorInvalid(document.querySelector('#user-form-signup #password-error'), document.querySelector('#user-form-signup #userPassword'), error.response.data.errors.password);
+        SignUpUser.setErrorInvalid(SignUpUser.passwordError, SignUpUser.userPassword, error.response.data.errors.password);
       } else {
-        SignUpUser.setValid(document.querySelector('#user-form-signup #userPassword'));
+        SignUpUser.setValid(SignUpUser.userPassword);
       }
     });
   },
@@ -5060,6 +5079,127 @@ var SignUpUser = {
   setValid: function setValid(elementInput) {
     elementInput.classList.remove('is-invalid');
     elementInput.classList.add('is-valid');
+  },
+  clear: function clear(elementInput) {
+    elementInput.classList.remove('is-invalid');
+    elementInput.classList.remove('is-valid');
+    elementInput.value = "";
+  }
+};
+var LoginUser = {
+  modal: document.querySelector('#loginUser'),
+  formLogin: document.querySelector('#user-login'),
+  userEmailLogin: document.querySelector('#user-login #userEmailLogin'),
+  userPasswordLogin: document.querySelector('#user-login #userPasswordLogin'),
+  emailError: document.querySelector('#user-login #email-error'),
+  passwordError: document.querySelector('#user-login #password-error'),
+  getValues: function getValues() {
+    return {
+      email: LoginUser.userEmailLogin.value,
+      password: LoginUser.userPasswordLogin.value
+    };
+  },
+  login: function login() {
+    console.log(LoginUser.getValues());
+    axios__WEBPACK_IMPORTED_MODULE_0___default()({
+      method: 'post',
+      url: '/user/login',
+      data: LoginUser.getValues()
+    }).then(function (response) {
+      //let modal = bootstrap.Modal.getInstance(SignUpUser.modal)
+      window.location.href = "http://localhost"; //modal.hide()
+    })["catch"](function (error) {
+      if (error.response.data.errors.hasOwnProperty('emailAlert')) {
+        LoginUser.showAlert(error.response.data.errors.emailAlert);
+      }
+
+      if (error.response.data.errors.hasOwnProperty('email')) {
+        LoginUser.setErrorInvalid(LoginUser.emailError, LoginUser.userEmailLogin, error.response.data.errors.email);
+      } else {
+        LoginUser.userEmailLogin.classList.remove('is-invalid');
+      }
+
+      if (error.response.data.errors.hasOwnProperty('password')) {
+        LoginUser.setErrorInvalid(LoginUser.passwordError, LoginUser.userPasswordLogin, error.response.data.errors.password);
+      } else {
+        LoginUser.userPasswordLogin.classList.remove('is-invalid');
+      }
+    });
+  },
+  logout: function logout() {
+    axios__WEBPACK_IMPORTED_MODULE_0___default()({
+      method: 'post',
+      url: '/user/logout'
+    }).then(function (response) {
+      window.location.href = "http://localhost";
+    });
+  },
+  showAlert: function showAlert(errorArray) {
+    var alertUserLogin = document.createElement('div');
+    var alertButton = document.createElement('button');
+    var html = '';
+    errorArray.forEach(function (message) {
+      html += "".concat(message, "<br>");
+    });
+    alertUserLogin.innerHTML = html;
+    alertButton.setAttribute('data-bs-dismiss', 'alert');
+    alertButton.setAttribute('aria-label', 'Close');
+    alertButton.setAttribute('type', 'button');
+    alertButton.classList.add('btn-close');
+    alertUserLogin.id = 'alert-login-user';
+    alertUserLogin.classList.add('alert', 'alert-danger', 'alert-dismissible');
+    alertUserLogin.setAttribute('role', 'alert');
+    alertUserLogin.appendChild(alertButton);
+    LoginUser.formLogin.appendChild(alertUserLogin);
+  },
+  setErrorInvalid: function setErrorInvalid(elementError, elementInput, errorArray) {
+    var html = '';
+    elementInput.classList.add('is-invalid');
+    errorArray.forEach(function (message) {
+      html += "".concat(message, "<br>");
+    });
+    elementError.innerHTML = html;
+  },
+  clear: function clear(elementInput) {
+    elementInput.classList.remove('is-invalid');
+    elementInput.value = "";
+  }
+};
+
+
+/***/ }),
+
+/***/ "./resources/js/vehicle-tips/vehicle-tips.js":
+/*!***************************************************!*\
+  !*** ./resources/js/vehicle-tips/vehicle-tips.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "UpsertTips": () => (/* binding */ UpsertTips)
+/* harmony export */ });
+var UpsertTips = {
+  modal: document.querySelector('#upsertTips'),
+  typeVehicle: document.querySelector('#upsert-vehicle-tips-form select#typeVehicle'),
+  marcaVehicleInput: document.querySelector('#upsert-vehicle-tips-form input#marcaVehicleInput'),
+  marcaVehicleSelect: document.querySelector('#upsert-vehicle-tips-form select#marcaVehicleSelect'),
+  modeloVehicle: document.querySelector('#upsert-vehicle-tips-form input#modeloVehicle'),
+  versaoVehicle: document.querySelector('#upsert-vehicle-tips-form input#versaoVehicle'),
+  typeVehicleError: document.querySelector('#upsert-vehicle-tips-form #type-vehicle-error'),
+  marcaVehicleInputError: document.querySelector('#upsert-vehicle-tips-form #marca-vehicle-input-error'),
+  modeloVehicleError: document.querySelector('#upsert-vehicle-tips-form #modelo-vehicle-error'),
+  getValues: function getValues() {
+    return {
+      type_vehicle: UpsertTips.typeVehicle.value,
+      brand: UpsertTips.marcaVehicleInput.value,
+      model: UpsertTips.modeloVehicle.value,
+      version: UpsertTips.versaoVehicle.value
+    };
+  },
+  save: function save() {
+    console.log(UpsertTips.getValues());
   }
 };
 

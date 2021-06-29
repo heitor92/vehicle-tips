@@ -3,6 +3,13 @@ require('./bootstrap');
 /** 
  * Script JS do User
  */
-import {SignUpUser} from './vehicle-tips/user';
+import {SignUpUser,LoginUser} from './vehicle-tips/user';
 window.SignUpUser = SignUpUser;
+window.LoginUser = LoginUser;
 
+/**
+ * Script JS do Vehicle tips
+ */
+
+import {UpsertTips} from './vehicle-tips/vehicle-tips';
+window.UpsertTips = UpsertTips;

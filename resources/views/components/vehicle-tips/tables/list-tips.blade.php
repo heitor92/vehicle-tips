@@ -1,4 +1,10 @@
-<div class="text-end" >
+<div class="text-end 
+    @if(array_key_exists('name', $user))
+        visible
+    @else
+        invisible
+    @endif 
+">
     <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#upsertTips">Adicionar +</button>
 </div>
 <div class="table-responsive">
@@ -21,9 +27,30 @@
                 <td class="text-center">XLR</td>
                 <td class="text-center">1.0</td>
                 <td class="text-center">
-                    <button class="btn btn-warning me-2" type="button" data-bs-toggle="modal" data-bs-target="#upsertTips"><i class="bi bi-pencil"></i></button>
+                    <button 
+                        class="btn btn-warning me-2 
+                        @if(array_key_exists('name', $user))
+                            visible
+                        @else
+                            invisible
+                        @endif" 
+                        type="button" 
+                        data-bs-toggle="modal" 
+                        data-bs-target="#upsertTips">
+                        <i class="bi bi-pencil"></i>
+                    </button>
                     <button class="btn btn-warning me-2" type="button" data-bs-toggle="modal" data-bs-target="#displayTips"><i class="bi bi-eye"></i></button>
-                    <button class="btn btn-danger me-2" type="button" data-bs-toggle="modal" data-bs-target="#deleteTips"><i class="bi bi-trash"></i></button>
+                    <button class="btn btn-danger me-2 
+                        @if(array_key_exists('name', $user))
+                            visible
+                        @else
+                            invisible
+                        @endif" 
+                        type="button" 
+                        data-bs-toggle="modal" 
+                        data-bs-target="#deleteTips">
+                        <i class="bi bi-trash"></i>
+                    </button>
                 </td>
             </tr>
             <tr>
@@ -33,9 +60,30 @@
                 <td class="text-center">XLR</td>
                 <td class="text-center">1.0</td>
                 <td class="text-center">
-                    <button class="btn btn-warning me-2" type="button" data-bs-toggle="modal" data-bs-target="#upsertTips"><i class="bi bi-pencil"></i></button>
+                <button 
+                        class="btn btn-warning me-2 
+                        @if(array_key_exists('name', $user))
+                            visible
+                        @else
+                            invisible
+                        @endif" 
+                        type="button" 
+                        data-bs-toggle="modal" 
+                        data-bs-target="#upsertTips">
+                        <i class="bi bi-pencil"></i>
+                    </button>
                     <button class="btn btn-warning me-2" type="button" data-bs-toggle="modal" data-bs-target="#displayTips"><i class="bi bi-eye"></i></button>
-                    <button class="btn btn-danger me-2" type="button" data-bs-toggle="modal" data-bs-target="#deleteTips"><i class="bi bi-trash"></i></button>
+                    <button class="btn btn-danger me-2 
+                        @if(array_key_exists('name', $user))
+                            visible
+                        @else
+                            invisible
+                        @endif" 
+                        type="button" 
+                        data-bs-toggle="modal" 
+                        data-bs-target="#deleteTips">
+                        <i class="bi bi-trash"></i>
+                    </button>
                 </td>
             </tr>
             <tr>
@@ -45,9 +93,30 @@
                 <td class="text-center">XLR</td>
                 <td class="text-center">1.0</td>
                 <td class="text-center">
-                    <button class="btn btn-warning me-2 invisible" type="button" data-bs-toggle="modal" data-bs-target="#upsertTips"><i class="bi bi-pencil"></i></button>
+                <button 
+                        class="btn btn-warning me-2 
+                        @if(array_key_exists('name', $user))
+                            visible
+                        @else
+                            invisible
+                        @endif" 
+                        type="button" 
+                        data-bs-toggle="modal" 
+                        data-bs-target="#upsertTips">
+                        <i class="bi bi-pencil"></i>
+                    </button>
                     <button class="btn btn-warning me-2" type="button" data-bs-toggle="modal" data-bs-target="#displayTips"><i class="bi bi-eye"></i></button>
-                    <button class="btn btn-danger me-2 invisible" type="button" data-bs-toggle="modal" data-bs-target="#deleteTips"><i class="bi bi-trash"></i></button>
+                    <button class="btn btn-danger me-2 
+                        @if(array_key_exists('name', $user))
+                            visible
+                        @else
+                            invisible
+                        @endif" 
+                        type="button" 
+                        data-bs-toggle="modal" 
+                        data-bs-target="#deleteTips">
+                        <i class="bi bi-trash"></i>
+                    </button>
                 </td>
             </tr>
         </tbody>

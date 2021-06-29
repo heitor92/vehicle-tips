@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\TypeVehicle;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class VehicleTipsController extends Controller
 {
@@ -15,11 +17,39 @@ class VehicleTipsController extends Controller
     {
         $name = 'Vehicle Tips';
         $title = "{$name} - Home";
+        $user = [];
+
+        $arTypeVehicle = $this->getTypesVehicle();
+        if(request()->session()->has('id')){
+            $user['id'] = request()->session()->get('id');
+            $user['name'] = request()->session()->get('name');
+            $user['email'] = request()->session()->get('email');
+        }
         
         return view('vehicle-tips.home', [
             'title' => $title,
-            'name' => $name
+            'name' => $name,
+            'user' => $user,
+            'arTypeVehicle' => $arTypeVehicle
         ]);
+    }
+
+    /**
+     * lista tipos de veículos
+     *
+     * @return array
+     */
+    public function getTypesVehicle()
+    {
+        $typesVehicle = DB::table('type_vehicle')->get();
+        $type = [];
+        $arrayTypes = [];
+        foreach ($typesVehicle as  $typeItem) {
+            $type['id'] = $typeItem->id;
+            $type['name'] = $typeItem->name;
+            $arrayTypes[] = $type;
+        }
+        return $arrayTypes;
     }
 
     /**

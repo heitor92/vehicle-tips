@@ -7,13 +7,29 @@ use Illuminate\View\Component;
 class Upsert extends Component
 {
     /**
-     * Create a new component instance.
+     * usuário
      *
+     * @var object
+     */
+    public $user;
+
+    /**
+     * tipos de veículo
+     *
+     * @var array
+     */
+    public $arTypeVehicle;
+
+    /**
+     * Create a new component instance.
+     * @param object $user
+     * @param array $arTypeVehicle
      * @return void
      */
-    public function __construct()
+    public function __construct($user, $arTypeVehicle)
     {
-        //
+        $this->user = $user;
+        $this->arTypeVehicle = $arTypeVehicle;
     }
 
     /**

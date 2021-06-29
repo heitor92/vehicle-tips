@@ -7,9 +7,9 @@
     <div class="input-group mb-3 mt-3">
         <select class="form-select" aria-label="Tipo">
             <option selected>-- Tipo --</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+            @foreach ($arTypeVehicle as $typeVehicle)
+                <option value="{{ $typeVehicle['id'] }}">{{ $typeVehicle['name'] }}</option>
+            @endforeach
         </select>
         <select class="form-select" aria-label="Marca">
             <option selected>-- Marca --</option>
@@ -30,7 +30,13 @@
             <option value="3">Three</option>
         </select>
     </div>
-    <div class="input-group mb-5 mt-3">
+    <div class="input-group mb-5 mt-3 
+        @if(array_key_exists('name', $user))
+            visible
+        @else
+            invisible
+        @endif 
+        ">
         <div class="form-check">
             <input class="form-check-input" type="checkbox" value="" id="MinhasDicas">
             <label class="form-check-label" for="MinhasDicas">

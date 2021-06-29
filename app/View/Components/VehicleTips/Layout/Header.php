@@ -12,14 +12,24 @@ class Header extends Component
      * @var string
      */
     public $name;
+
+    /**
+     * usuário
+     *
+     * @var object
+     */
+    public $user;
+
     /**
      * Create a new component instance.
-     *
+     * @param string $name
+     * @param object $user
      * @return void
      */
-    public function __construct($name)
+    public function __construct($name, $user)
     {
         $this->name = $name;
+        $this->user = $user;
     }
 
     /**

@@ -140,10 +140,12 @@ return [
 //        ],
         'email' =>[
             'required' => 'O :attribute é obrigatório!',
-            'regex' => 'Não é um :attribute válido'
+            'regex' => 'Não é um :attribute válido',
+            'unique' => 'O :attribute já foi usado.'
         ],
         'name' => [
-            'required' => 'O :attribute é obrigatório!'
+            'required' => 'O :attribute é obrigatório!',
+            'unique' => 'O :attribute já foi usado.'
         ],
         'password' => [
             'required' => 'A :attribute é obrigatório!',
